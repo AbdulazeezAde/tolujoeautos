@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Phone, Mail, MapPin, Car } from 'lucide-react';
+import logo from '../assets/logo.jpg';
 
 export default function Footer() {
   return (
@@ -10,9 +11,10 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-6">
               <img 
-                src="/logo.jpg" 
+                src={logo} 
                 alt="Tolujoe Autos Logo" 
                 className="h-16 w-auto" 
+                referrerPolicy="no-referrer"
               />
             </Link>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
