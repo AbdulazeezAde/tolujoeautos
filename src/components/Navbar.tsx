@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Car } from 'lucide-react';
 import { useState } from 'react';
-import logo from '../assets/logo.jpg';
+import { logoBase64 } from '../logoBase64';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function Navbar() {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center gap-2">
               <img 
-                src={logo} 
+                src={logoBase64} 
                 alt="Tolujoe Autos Logo" 
                 className="h-12 w-auto" 
                 referrerPolicy="no-referrer"
