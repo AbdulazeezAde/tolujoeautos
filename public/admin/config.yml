@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "inventory"
+    label: "Inventory"
+    files:
+      - label: "Cars"
+        name: "cars"
+        file: "public/cars.json"
+        fields:
+          - label: "Cars List"
+            name: "cars"
+            widget: "list"
+            fields:
+              - {label: "ID", name: "id", widget: "number"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Make", name: "make", widget: "string"}
+              - {label: "Model", name: "model", widget: "string"}
+              - {label: "Year", name: "year", widget: "string"}
+              - {label: "Price", name: "price", widget: "string"}
+              - {label: "Mileage", name: "mileage", widget: "string"}
+              - {label: "Transmission", name: "transmission", widget: "select", options: ["Automatic", "Manual", "PDK Automatic"]}
+              - {label: "Fuel Type", name: "fuel", widget: "select", options: ["Petrol", "Diesel", "Electric", "Hybrid"]}
+              - {label: "Engine", name: "engine", widget: "string", required: false}
+              - {label: "Description", name: "description", widget: "text"}
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                field: {label: "Image", name: "image", widget: "image"}
+              - {label: "Status", name: "status", widget: "select", options: ["available", "sold"]}
