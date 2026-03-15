@@ -1,20 +1,49 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Tolujoe Autos
 
-# Run and deploy your AI Studio app
+Welcome to the official repository for **Tolujoe Autos** – a premium car dealership offering clean, high-quality vehicles with no stories.
 
-This contains everything you need to run your app locally.
+## About Us
 
-View your app in AI Studio: https://ai.studio/apps/3b75e070-3e8b-43e9-8989-e853129de65f
+At Tolujoe Autos, we specialize in sourcing, repairing, and selling premium vehicles. We believe in transparency, quality, and customer satisfaction. "No Stories! Just Clean Cars — A Trial Will Convince You."
 
-## Run Locally
+## Features
 
-**Prerequisites:**  Node.js
+- **Inventory Management**: Browse our handpicked selection of premium, fully-inspected vehicles.
+- **Detailed Car Profiles**: View high-quality images, specifications, and pricing for each vehicle.
+- **Direct Contact**: Seamlessly connect with our sales team via WhatsApp or phone.
+- **Responsive Design**: A sleek, modern interface that works perfectly on desktop, tablet, and mobile devices.
 
+## Tech Stack
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- **Frontend**: React 19, React Router
+- **Styling**: Tailwind CSS, Framer Motion
+- **Icons**: Lucide React
+- **Build Tool**: Vite
+
+## Getting Started
+
+To run this project locally:
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## Contact
+
+- **WhatsApp/Phone**: +44 7393435895
+- **Email**: info@tolujoeautos.com
+- **Instagram**: [@tolujoe_autos](https://instagram.com/tolujoe_autos)
+- **TikTok**: [@tolujoe_autos](https://tiktok.com/@tolujoe_autos)
+
+---
+*© Tolujoe Autos. All rights reserved.*
