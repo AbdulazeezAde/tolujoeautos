@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Car } from '../types';
-import { Calendar, Gauge, Settings, Fuel, ChevronLeft, ChevronRight, Phone, MessageCircle, ArrowLeft } from 'lucide-react';
+import { Calendar, Gauge, Settings, Fuel, ChevronLeft, ChevronRight, Phone, ArrowLeft } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 export default function CarDetails() {
   const { id } = useParams<{ id: string }>();
   const [car, setCar] = useState<Car | null>(null);
   const [loading, setLoading] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   useEffect(() => {
     const fetchCar = async () => {
       try {
-        const response = await fetch('/cars.json');
+        const response = await fetch('/cars.json?v=' + new Date().getTime());
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         const foundCar = (data.cars as Car[]).find(c => c.id.toString() === id);
@@ -26,17 +29,29 @@ export default function CarDetails() {
     fetchCar();
   }, [id]);
 
-  const nextImage = () => {
-    if (car && car.images.length > 0) {
-      setCurrentImageIndex((prev) => (prev + 1) % car.images.length);
-    }
-  };
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
-  const prevImage = () => {
-    if (car && car.images.length > 0) {
-      setCurrentImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length);
-    }
-  };
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback((index: number) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
 
   const whatsappMessage = car ? encodeURIComponent(`Hi Tolujoe Autos, I'm interested in the ${car.year} ${car.title} listed for ${car.price}. Is it still available?`) : '';
 
@@ -64,47 +79,53 @@ export default function CarDetails() {
           <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
               
-              {/* Image Gallery */}
-              <div className="relative bg-gray-900 aspect-[4/3] lg:aspect-auto h-full min-h-[400px]">
+              {/* Image Gallery with Embla Carousel */}
+              <div className="relative bg-gray-900 aspect-[4/3] lg:aspect-auto h-full min-h-[400px] flex flex-col">
                 {car.images.length > 0 ? (
-                  <>
-                    <img 
-                      src={car.images[currentImageIndex]} 
-                      alt={`${car.title} - View ${currentImageIndex + 1}`} 
-                      className="w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
-                    />
+                  <div className="relative flex-grow overflow-hidden" ref={emblaRef}>
+                    <div className="flex h-full touch-pan-y">
+                      {car.images.map((img, idx) => (
+                        <div className="flex-[0_0_100%] min-w-0 relative h-full" key={idx}>
+                          <img 
+                            src={img} 
+                            alt={`${car.title} - View ${idx + 1}`} 
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      ))}
+                    </div>
                     
                     {car.images.length > 1 && (
                       <>
                         <button 
-                          onClick={prevImage}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors"
+                          onClick={scrollPrev}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors z-10"
                         >
                           <ChevronLeft className="h-6 w-6" />
                         </button>
                         <button 
-                          onClick={nextImage}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors"
+                          onClick={scrollNext}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors z-10"
                         >
                           <ChevronRight className="h-6 w-6" />
                         </button>
                         
                         {/* Thumbnails */}
-                        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 px-4">
+                        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 px-4 z-10">
                           {car.images.map((_, idx) => (
                             <button
                               key={idx}
-                              onClick={() => setCurrentImageIndex(idx)}
+                              onClick={() => scrollTo(idx)}
                               className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                                idx === currentImageIndex ? 'bg-brand-red' : 'bg-white/50 hover:bg-white/80'
+                                idx === selectedIndex ? 'bg-brand-red' : 'bg-white/50 hover:bg-white/80'
                               }`}
                             />
                           ))}
                         </div>
                       </>
                     )}
-                  </>
+                  </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-500">
                     No images available

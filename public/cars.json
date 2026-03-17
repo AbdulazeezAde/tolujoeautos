@@ -31,8 +31,8 @@
       "engine": "4.0L V8 BiTurbo",
       "description": "Pristine condition G63 AMG. Fully loaded with premium features, stunning interior, and unmatched performance.",
       "images": [
-        "https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&q=80&w=1200",
-        "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=1200"
+        "https://images.unsplash.com/photo-1680843274944-40433b411e2b?auto=format&fit=crop&q=80&w=1200",
+        "https://images.unsplash.com/photo-1680843277454-4d69ec3e8d18?auto=format&fit=crop&q=80&w=1200"
       ],
       "status": "available"
     },
@@ -49,7 +49,7 @@
       "engine": "3.0L Inline-6",
       "description": "The epitome of luxury SUVs. This Range Rover Autobiography offers unparalleled comfort and cutting-edge technology.",
       "images": [
-        "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&q=80&w=1200",
+        "https://www.europeanprestige.co.uk/blobs/stock/625/images/ba45a396-5060-4c1b-90c6-977f2a60e8a9/rr-1.jpg?width=2000&height=1333",
         "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1200"
       ],
       "status": "available"
@@ -67,7 +67,6 @@
       "engine": "3.0L Flat-6",
       "description": "A classic sports car with modern performance. Well-maintained, clean title, and ready for the open road.",
       "images": [
-        "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=1200",
         "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=1200"
       ],
       "status": "available"
@@ -85,8 +84,7 @@
       "engine": "4.4L V8 Twin-Turbo",
       "description": "Incredible performance sedan. The M5 Competition delivers supercar speed with everyday usability.",
       "images": [
-        "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=1200",
-        "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&q=80&w=1200"
+        "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=1200"
       ],
       "status": "available"
     },

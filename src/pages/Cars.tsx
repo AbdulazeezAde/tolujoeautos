@@ -19,7 +19,7 @@ export default function Cars() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('/cars.json');
+        const response = await fetch('/cars.json?v=' + new Date().getTime());
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         setCars(data.cars as Car[]);

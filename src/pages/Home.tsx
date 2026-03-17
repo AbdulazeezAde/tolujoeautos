@@ -1,13 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Car } from '../types';
 import CarCard from '../components/CarCard';
-import { ShieldCheck, Wrench, Car as CarIcon, CheckCircle2, ArrowRight, Phone } from 'lucide-react';
+import { ShieldCheck, Wrench, Car as CarIcon, CheckCircle2, ArrowRight, Phone, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 export default function Home() {
   const [featuredCars, setFeaturedCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true, 
+    align: 'start',
+    slidesToScroll: 1,
+    breakpoints: {
+      '(min-width: 768px)': { slidesToScroll: 2 },
+      '(min-width: 1024px)': { slidesToScroll: 3 }
+    }
+  });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -25,6 +44,22 @@ export default function Home() {
     };
     fetchCars();
   }, []);
+
+  const sourcingCars = [
+    { name: "Toyota Camry", img: "https://images.unsplash.com/photo-1657872737697-737a2d123ef2?auto=format&fit=crop&q=80&w=800" },
+    { name: "Honda Civic", img: "https://images.unsplash.com/photo-1634737581963-5a22ba471961?auto=format&fit=crop&q=80&w=800" },
+    { name: "Ford Mustang", img: "https://images.unsplash.com/photo-1547744152-14d985cb937f?auto=format&fit=crop&q=80&w=800" },
+    { name: "Lexus RX", img: "https://images.unsplash.com/photo-1664427356346-c31b46248e71?auto=format&fit=crop&q=80&w=800" },
+    { name: "Ford Pickup", img: "https://images.unsplash.com/photo-1636882441787-d9ac4ea22637?auto=format&fit=crop&q=80&w=800" },
+    { name: "Audi", img: "https://images.unsplash.com/photo-1622198717748-ca120c5590f6?auto=format&fit=crop&q=80&w=800" },
+    { name: "BMW", img: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym13fGVufDB8fDB8fHww" },
+    { name: "Hyundai Tucson", img: "https://images.unsplash.com/photo-1575090536203-2a6193126514?auto=format&fit=crop&q=80&w=800" },
+    { name: "Toyota Corolla", img: "https://images.unsplash.com/photo-1619682817481-e994891cd1f5?auto=format&fit=crop&q=80&w=800" },
+    { name: "Mercedes-Benz", img: "https://images.unsplash.com/photo-1669234226129-8ede05b40eff?auto=format&fit=crop&q=80&w=800" },
+    { name: "Range Rover", img: "https://images.unsplash.com/photo-1725815761064-b84c3f4f9b94?auto=format&fit=crop&q=80&w=800" },
+    { name: "BMW", img: "https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&q=80&w=800" },
+    { name: "Mercedes-Benz", img: "https://images.unsplash.com/photo-1577615792595-d38014354328?auto=format&fit=crop&q=80&w=800" }
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -163,6 +198,71 @@ export default function Home() {
                 <p className="text-gray-500 text-center leading-relaxed">{step.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* UK Sourcing Section */}
+      <section className="py-24 bg-brand-gray border-y border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-brand-black font-bold tracking-widest uppercase text-sm mb-2 block">Based in the UK</span>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-brand-red tracking-tight mb-6">Global Sourcing & Shipping</h2>
+            <p className="text-2xl text-gray-800 max-w-3xl mx-auto font-medium leading-relaxed">
+              We can source these cars and ship to you anywhere in the world.
+            </p>
+          </div>
+
+          <div className="relative mb-12">
+            <div className="overflow-hidden" ref={emblaRef}>
+              <div className="flex touch-pan-y -ml-4">
+                {sourcingCars.map((car, i) => (
+                  <div 
+                    key={i}
+                    className="flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%] min-w-0 pl-4"
+                  >
+                    <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-sm h-full">
+                      <img 
+                        src={car.img} 
+                        alt={car.name} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                        <h3 className="text-white font-bold text-lg md:text-xl tracking-wide">{car.name}</h3>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Carousel Navigation Buttons */}
+            <button 
+              onClick={scrollPrev}
+              className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-brand-black p-3 rounded-full shadow-lg transition-all z-10 border border-gray-100 hidden sm:block"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button 
+              onClick={scrollNext}
+              className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-brand-black p-3 rounded-full shadow-lg transition-all z-10 border border-gray-100 hidden sm:block"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 text-center">
+            <h3 className="text-2xl font-bold text-brand-red mb-4">Popular Car Makes We Source</h3>
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+              {['Land Rover', 'Range Rover', 'Lexus', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Toyota', 'Honda', 'Ford', 'Porsche'].map((make, i) => (
+                <span key={i} className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-gray-700 font-medium text-sm">
+                  {make}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
