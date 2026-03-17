@@ -9,13 +9,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="col-span-1 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-6">
+            <Link to="/" className="flex items-center gap-3 mb-6">
               <img 
                 src={logoBase64} 
                 alt="Tolujoe Autos Logo" 
                 className="h-16 w-auto" 
                 referrerPolicy="no-referrer"
               />
+              <span className="text-xl font-bold tracking-wider text-white">TOLUJOE AUTOS</span>
             </Link>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
               No Stories! Just Clean Cars — A Trial Will Convince You. We specialize in sourcing, repairing, and selling premium vehicles.

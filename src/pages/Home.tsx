@@ -85,7 +85,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium tracking-wider uppercase mb-6 backdrop-blur-md">
-              Premium Dealership
+              TOLUJOE AUTOS
             </span>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white mb-6 tracking-tight leading-[1.1]">
               No Stories.<br />
